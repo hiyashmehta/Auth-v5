@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod"
-
+import { useState, useTransition } from "react";
 import { LoginSchema } from "@/schemas"
 
 import { useForm } from "react-hook-form"
@@ -24,6 +24,10 @@ import { FormSuccess } from "../form-success";
 import { login } from "@/actions/login";
 
 const LoginForm = () => {
+    const [error, setError] = useState<string | undefined>("");
+    const [success, setSuccess] = useState<string | undefined>("");
+    const [isPending, startTransition] = useTransition();
+
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -33,7 +37,16 @@ const LoginForm = () => {
     });
 
 const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    login(values);
+    setError("");
+    setSuccess("");
+
+    startTransition(() => {
+    login(values)
+        .then((data) => {
+            setError(data.error);
+            setSuccess(data.success);
+        })
+});
 }
 
     return (
@@ -59,6 +72,7 @@ const onSubmit = (values: z.infer<typeof LoginSchema>) => {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            disabled={isPending}
                                             placeholder="johndoe@example.com"
                                             type="email"
                                         />
@@ -76,6 +90,7 @@ const onSubmit = (values: z.infer<typeof LoginSchema>) => {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            disabled={isPending}
                                             placeholder="********"
                                             type="password"
                                         />
@@ -85,9 +100,10 @@ const onSubmit = (values: z.infer<typeof LoginSchema>) => {
                             )}
                         />
                     </div>
-                    <FormError message="" />
-                    <FormSuccess message="" />
+                    <FormError message={error} />
+                    <FormSuccess message={success} />
                     <Button
+                        disabled={isPending}
                         type="submit"
                         className="w-full"
                     >
