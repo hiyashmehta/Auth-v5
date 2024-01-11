@@ -6,6 +6,7 @@ import *as z from "zod";
 import { signIn } from "@/auth";
 import { LoginSchema } from "@/schemas";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
 import { getUserByEmail } from "@/data/user";
 
@@ -28,6 +29,11 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
         const verificationToken = await generateVerificationToken(
             existingUser.email,
             );
+
+        await sendVerificationEmail(
+            verificationToken.email,
+            verificationToken.token,
+        );
 
         return { success: "Confirmation email sent!" };
     }
