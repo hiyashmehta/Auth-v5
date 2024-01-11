@@ -20,12 +20,11 @@ export const LoginButton = ({
     }
 
     if (mode === "modal") {
-        return(
-            <sapn>
-                TODO: Implement modal
-            </sapn>
-        )
-    }
+        // return (
+        //     // <span>
+        //     //  TODO: Implement modal
+        //     // </span>
+        //     )
     return (
         <span onClick={onClick} className="cursor-pointer">
             {children}

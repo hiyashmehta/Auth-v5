@@ -26,7 +26,7 @@ import { login } from "@/actions/login";
 
 const LoginForm = () => {
     const searchParams = useSearchParams();
-    const urlError = searchParams.get("error") === "0AuthAccountNotLinked"
+    const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
         ? "Email already in use with different provider!"
         : "";
 
