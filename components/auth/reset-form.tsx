@@ -21,7 +21,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
-import { login } from "@/actions/login";
+import { reset } from "@/actions/reset";
 
 const ResetForm = () => {
     const [error, setError] = useState<string | undefined>("");
@@ -40,7 +40,7 @@ const onSubmit = (values: z.infer<typeof ResetSchema>) => {
     setSuccess("");
 
     startTransition(() => {
-    login(values)
+    reset(values)
         .then((data) => {
             setError(data?.error);
             setSuccess(data?.success);
