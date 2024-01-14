@@ -23,7 +23,7 @@ export default function Home() {
           A simple authentication service
         </p>
           <div>
-            <LoginButton>
+            <LoginButton children={undefined} mode={"modal"} asChild={"boolean"}>
             <Button variant="secondary" size="lg">
               Sign in
             </Button>

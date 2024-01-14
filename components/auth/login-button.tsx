@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { loadGetInitialProps } from "next/dist/shared/lib/utils";
+// import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
 interface LoginButtonProps {
     children: React.ReactNode;
@@ -20,14 +20,10 @@ export const LoginButton = ({
     }
 
     if (mode === "modal") {
-        // return (
-        //     // <span>
-        //     //  TODO: Implement modal
-        //     // </span>
-        //     )
-    return (
-        <span onClick={onClick} className="cursor-pointer">
-            {children}
-        </span>
-    )
+        return (
+            <span onClick={onClick} className="cursor-pointer">
+                {children}
+            </span>
+        );            
+}
 }

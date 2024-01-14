@@ -29,7 +29,7 @@ export const SettingsSchema = z.object({
     message: "Current password is required!",
     path: ["password"]
 });
-})
+
 
 export const NewPasswordSchema = z.object({
     password: z.string().min(6, {
